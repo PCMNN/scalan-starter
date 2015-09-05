@@ -11,12 +11,6 @@ object StarterBoilerplateTool extends BoilerplateTool {
     entityFiles = List(
       "scalan/examples/MyArrays.scala"
     ),
-    baseContextTrait = "Scalan",
-    seqContextTrait = "ScalanSeq",
-    stagedContextTrait = "ScalanExp",
-    extraImports = List(
-      "scala.reflect.runtime.universe._",
-      "scalan.common.Default"),
     starterTypeSynonims
   )
 

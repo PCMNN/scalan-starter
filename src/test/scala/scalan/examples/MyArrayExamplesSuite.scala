@@ -15,7 +15,7 @@ class MyArrayExamplesSuite extends BaseShouldTests {
   "when mixing trait" should "be constructed in Seq context" in {
       val ctx = new ScalanCtxSeq with ExampleDslSeq with MyArrayExamples {}
   }
-  
+
   it should "be constructed in Staged context" in {
     val ctx = new ScalanCtxExp with ExampleDslExp with MyArrayExamples {}
   }

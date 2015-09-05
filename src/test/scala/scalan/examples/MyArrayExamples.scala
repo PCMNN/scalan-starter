@@ -6,7 +6,7 @@ trait MyArrayExamples extends ExampleDsl with PrimitiveExamples {
   lazy val fromArray = fun { xs: Arr[Int] => MyArray(Collection(xs)) }
   lazy val fromArrayOfPairs = fun { xs: Arr[(Int,Float)] => MyArray(Collection(xs)) }
   lazy val fromAndTo = fun { xs: Arr[(Int,Float)] =>
-    val ps = MyArray(CollectionOfPairs(xs).convertTo[Collection[(Int,Float)]])
+    val ps = MyArray(PairCollectionAOS(CollectionOverArray(xs)).convertTo[Collection[(Int,Float)]])
     val arr = ps.values.convertTo[PairCollection[Int,Float]].arr
     arr//(arr.map(_._1), arr.map(_._2))
   }
@@ -39,21 +39,21 @@ trait MyArrayExamples extends ExampleDsl with PrimitiveExamples {
     val ys = xs.map { x => x + 1 }
     val pairs2 = PairMyArray(BaseMyArray(Collection(ys)), BaseMyArray(Collection(xs)))
     val res = IF (xs.length > 10) THEN { pairs1 } ELSE { pairs2 }
-    res
+    res.values.arr
   }
   lazy val expPairArraysInIfSpec = fun { xs: Arr[Int] =>
-    expPairArraysInIf(xs).values
+    expPairArraysInIf(xs)
   }
 
   lazy val expPairArraysInIfDiffTypes = fun { xs: Arr[(Int,Int)] =>
-    val ys = xs.map { x => x._1 + x._2 }
-    val pairs1: MyArr[(Int,Int)] = PairMyArray(BaseMyArray(Collection(ys)), BaseMyArray(Collection(ys)))
-    val pairs2: MyArr[(Int,Int)] = BaseMyArray(Collection(xs))
-    val res = IF (xs.length > 10) THEN { pairs1 } ELSE { pairs2 }
-    res
+    val ys = xs.map { case Pair(x, y) => x + y }
+    val pairs1 = PairMyArray(BaseMyArray(Collection(ys)), BaseMyArray(Collection(ys)))
+    val pairs2 = BaseMyArray(Collection(xs))
+    val res = IF (xs.length > 10) THEN pairs1 ELSE pairs2
+    res.values.arr
   }
   lazy val expPairArraysInIfDiffTypesSpec = fun { xs: Arr[(Int,Int)] =>
-    expPairArraysInIfDiffTypes(xs).values
+    expPairArraysInIfDiffTypes(xs)
   }
 
   lazy val pairInIf = fun { in: Arr[Int] =>

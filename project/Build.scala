@@ -22,7 +22,7 @@ object Build extends Build {
 
   val buildSettings = Seq(
     organization := "com.huawei.scalan",
-    scalaVersion := "2.10.4",
+    scalaVersion := "2.11.7",
     scalacOptions ++= Seq(
       "-unchecked", "-deprecation",
       "-feature",
@@ -60,17 +60,17 @@ object Build extends Build {
 
   def liteProject(name: String) = ProjectRef(file("../scalan-ce"), name)
 
-  def liteDependency(name: String) = "com.huawei.scalan" %% name % "0.2.7-SNAPSHOT"
+  def liteDependency(name: String) = "com.huawei.scalan" %% name % "0.2.11-SNAPSHOT"
 
-  lazy val metaDeps = liteDependency("meta")
+  lazy val metaDeps = liteDependency("scalan-meta")
   lazy val meta = Project(
     id = "starter-meta",
     base = file("meta")).addTestConfigsAndCommonSettings.
     settings(libraryDependencies ++= Seq(metaDeps))
 
-  lazy val core = liteDependency("core")
-  lazy val common = liteDependency("common")
-  lazy val community = liteDependency("community-edition")
+  lazy val core = liteDependency("scalan-core")
+  lazy val common = liteDependency("scalan-common")
+  lazy val community = liteDependency("scalan-library")
   lazy val ml_study = Project(
     id = "scalan-starter",
     base = file(".")).addTestConfigsAndCommonSettings.
